@@ -1,0 +1,90 @@
+#root{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.photo{
+  min-width: 300px;
+  max-width: 300px;
+  min-height: 200px;
+  max-height: 200px;
+  position: absolute;
+  top: 10%;
+  left: 50%; 
+  transform: translate(-50%, 0px);
+}
+.game_field{
+  border: 1px solid black;
+  width: 600px;
+  height: 550px;
+}
+.com{
+  font-size: 30px;
+  margin: 10px 10px 0px 10px;
+}
+.com_1{
+  text-align: left;
+  position: absolute;
+}
+.com_2{
+  text-align: right;
+}
+.score{
+  margin: 10px 65px 0px 65px;
+  font-size: 30px;
+}
+.score_com_1{
+  position: absolute;
+  text-align: left;
+}
+.score_com_2{
+  text-align: right;
+}
+.question{
+  position: absolute;
+  font-size: 20px;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, 0px);
+}
+.answers{
+  position: absolute;
+  top: 60%;
+  left: 50%; 
+  transform: translate(-50%, 0px);
+  font-size: 30px;
+}
+ul li:hover{
+  color: green;
+}
+.form{
+  display: flex;
+  justify-content: center;
+}
+.reg_win{
+  border: 1px solid black;
+}
+input{
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 5px;
+}
+span{
+  font-size: 20px;
+  margin: 5px;
+}
+.reg{
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 30px;
+  padding: 5px;
+  margin: 10px 50px 10px 50px;
+}
+.com-text{
+  font-size: 15px;
+  position: absolute;
+  margin-top: -40px;
+  left: 50%;
+  transform: translate(-50%, 0px);
+}
