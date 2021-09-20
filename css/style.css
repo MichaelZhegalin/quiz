@@ -1,3 +1,7 @@
+body{
+  background-color: #F1F2F4;
+  height: 10vh;
+}
 #root{
   position: absolute;
   top: 50%;
@@ -10,12 +14,15 @@
   min-height: 200px;
   max-height: 200px;
   position: absolute;
+  border-radius: 15px;
   top: 10%;
   left: 50%; 
   transform: translate(-50%, 0px);
 }
 .game_field{
+  box-shadow: 3px 5px 10px 5px gray;
   border: 1px solid black;
+  background-color: white;
   width: 600px;
   height: 550px;
 }
@@ -57,34 +64,51 @@
 }
 ul li:hover{
   color: green;
-}
-.form{
-  display: flex;
-  justify-content: center;
+  cursor: pointer;
 }
 .reg_win{
+  box-shadow: 3px 5px 10px 5px gray;
   border: 1px solid black;
+  background-color: white;
+  width: 80vh;
+  height: 80vh;
+  display: grid;
+  grid-row: 10px;
+  grid-template-columns: 400px;
+  justify-content: center;
+  justify-items: center;
 }
 input{
-  border: 1px solid black;
+  border: 2px solid #FBC02D;
+  max-height: 30px;
+  min-width: 250px;
   border-radius: 5px;
-  margin: 5px;
+  cursor: pointer;
 }
-span{
+.comand{
   font-size: 20px;
-  margin: 5px;
+  margin-top: 10px;
 }
 .reg{
+  border: 1px solid white;
+  padding: 5px;
+  width: auto;
+  height: auto;
+  border-radius: 5px;
+  font-size: 30px;
+  position:relative;
+}
+.slide{
   border: 1px solid black;
+  background-color: yellow;
   border-radius: 5px;
   font-size: 30px;
   padding: 5px;
   margin: 10px 50px 10px 50px;
+  position: absolute;
+  z-index: 1;
 }
 .com-text{
-  font-size: 15px;
-  position: absolute;
-  margin-top: -40px;
-  left: 50%;
-  transform: translate(-50%, 0px);
+  font-size: 30px;
+  margin-top: 10px;
 }

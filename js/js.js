@@ -1,4 +1,5 @@
 const game_field = document.querySelector(".game_field");
+// const reg = document.querySelector(".reg");
 const reg_hidden = document.querySelector(".reg-hidden");
 const form = document.querySelector(".form");
 const input_com_1 = document.querySelector(".log_1");
@@ -9,36 +10,85 @@ const answers = document.querySelectorAll("li");
 const score_com_1 = document.querySelector(".score_com_1");
 const score_com_2 = document.querySelector(".score_com_2");
 const photo = document.querySelector(".photo")
+const body = document.querySelector("body");
 const true_answers = [1, 2, 3];
 const answer_options = ["1", "2", "3", "4", "5", "1", "2", "3", "4", "5"];
 const img = ["img/ExT3QzvWgAMEbvz.jpg", "img/ExT3QzvWgAMEbvz.jpg"];
 let question = 0;
 let count_1 = 1;
 let count_2 = 1;
+// let back = document.createElement("div")
 
 game_field.hidden = true;
 reg_hidden.hidden = false;
+// reg.append(back);
+// back.className = "slide";
 
 function scoring_points(answer){
 	if (answer == true_answers[question] && question % 2 == 0){
 		score_com_1.innerHTML = count_1;
+		right_answer(answer);
 		count_1++;
 	}
 	else if(answer == true_answers[question] && question % 2 != 0){
+		right_answer(answer);
 		score_com_2.innerHTML = count_2;
 		count_2++;
 	}
+	else wrong_answer(answer);
+
 	question++;
-	change_answer(question);
+	const asynchrony = new Promise(function(resolve, reject){
+		setTimeout(()=>{
+			answers.forEach((items) => {
+					items.style.color = "black";
+				});
+			body.style.backgroundColor = "#F1F2F4";
+			resolve();
+		}, 2000);
+	})
+	asynchrony.then(()=>{
+		for (let i = 0; i < 5; i++){
+			answers[i].onclick = () => scoring_points(i);
+			answers[i].innerHTML = answer_options[question*5+i];
+		}
+		//photo.src = "img/photo_2021-07-09_11-42-03.jpg";
+		photo.src = img[question];
+	});
 }
 
-function change_answer(question){
-	for (let i = 0; i < 5; i++){
- 		answers[i].innerHTML = answer_options[question*5+i]
- 	}
- 	//photo.src = "img/photo_2021-07-09_11-42-03.jpg";
- 	photo.src = img[question];
+// function normalize(){
+// 	answers.forEach((items) => {
+// 		items.style.color = "black";
+// 	});
+// 	body.style.backgroundColor = "#F1F2F4";
+// 	resolve();
+// }
+
+function right_answer(answer){
+	answers[answer].style.color = "green";
+	body.style.backgroundColor = "green";
+	answers.forEach((items) => {
+		items.onclick = undefined;
+	});
 }
+
+function wrong_answer(answer){
+	answers[answer].style.color = "red";
+	answers[true_answers[question]].style.color = "green";
+	body.style.backgroundColor = "red";
+	answers.forEach((items) => {
+		items.onclick = undefined;
+	});
+}
+
+// function change_answer(question){
+// 	for (let i = 0; i < 5; i++){
+//  		answers[i].innerHTML = answer_options[question*5+i]
+//  	}
+//  	//photo.src = "img/photo_2021-07-09_11-42-03.jpg";
+//  	photo.src = img[question];
+// }
 
 form.onsubmit = (e) => {
 	e.preventDefault();
