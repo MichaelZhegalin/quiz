@@ -34,13 +34,19 @@ body{
   max-width: 300px;
   min-height: 200px;
   max-height: 200px;
-  position: absolute;
   border-radius: 15px;
-  top: 20%;
-  left: 50%; 
-  transform: translate(-50%, 0px);
+}
+.photo_active{
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  object-fit: contain;
+}
+.img_location{
+  text-align: center;
 }
 .game_field{
+  padding: 10px;
   box-shadow: 3px 5px 10px 5px gray;
   border: 1px solid black;
   background-color: white;
