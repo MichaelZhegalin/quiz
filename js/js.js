@@ -10,13 +10,12 @@ const score_com_1 = document.querySelector(".score_com_1");
 const score_com_2 = document.querySelector(".score_com_2");
 const photo = document.querySelector(".photo")
 const body = document.querySelector("body");
-const true_answers = [1, 2, 3];
+const quiz_question = document.querySelector(".question");
 const hidden_for_img = document.querySelector(".hidden");
-const answer_options = ["1", "2", "3", "4", "5", "1", "2", "3", "4", "5"];
-const img = ["img/ExT3QzvWgAMEbvz.jpg", "img/ExT3QzvWgAMEbvz.jpg"];
 const slides = document.querySelectorAll('.final_com');
 const final_window_hidden = document.querySelector(".final_window_hidden");
 const final_text = document.querySelectorAll(".final_text");
+const quantity_question = 6;
 let com_name_1 = undefined;
 let com_name_2 = undefined;
 let question = 0;
@@ -28,6 +27,40 @@ final_window_hidden.hidden = true;
 game_field.hidden = true;
 reg_hidden.hidden = false;
 
+let test_question = {
+	obj_question: "Что изображено на картинке?",
+	img: "img/ExT3QzvWgAMEbvz.jpg",
+	var_answers: ["лол", "kek", "test", "strange", "yo"],
+	trueAnswers: 2,
+}
+
+function test_next_question(new_question, next_img, var_answers, trueAnswers){
+	test_question.obj_question = new_question;
+	test_question.img = next_img;
+	test_question.var_answers = var_answers;
+	test_question.trueAnswers = trueAnswers;
+}
+
+function var_question(){
+	switch(question){
+		case 1:
+			 test_next_question("Какая планета в солнечной системе самая горячая?", "img/Венера П-1.jpg", ["Меркурий", "Марс", "Венера", "Юпитер", "Земля"], 3);
+			 break;
+		case 2:
+			test_next_question("У какой из перечисленных планет нет спутников?", "img/image059-27.jpg", ["Земля", "Марс", "Венера", "Сатурн", "Нептун"], 3);
+			break;
+		case 3:
+			test_next_question("Как называются два спутника Марса?", "img/i.jpg", ["Фобос и Деймос", "Титан и Европа", "Феба и Рея", "Мимас и Пандора", "Тритон и Протей"], 1);
+			break;
+		case 4:
+			test_next_question("Кто ближе к солнцу - Уран или Нептун?", "img/uran-i-neptun.jpg", ["Уран", "Поочередно", "Это одна планета", "Одинаково", "Нептун"], 1);
+			break;
+		case 5:
+			test_next_question("Как называется это пятно на Юпитере?", "img/jupiter_spot_1600.jpg", ["Бычий глаз", "Большой смерч", "Красное око", "Большой ураган", "Большое красное пятно"], 5);
+			break;
+	}
+}
+
 for (const slide of slides){
 	slide.addEventListener('click', () => {
 		clearActiveClasses();
@@ -36,10 +69,11 @@ for (const slide of slides){
 }
 
 photo.onclick = () => {
-	photo.classList.toggle("photo_active");
-	photo.classList.toggle("photo");
+	photo.classList.toggle("active_img");
 	if(photo.classList != "photo") hidden_for_img.hidden = true;
-	else hidden_for_img.hidden = false;
+	setTimeout(()=>{
+		if(photo.classList == "photo") hidden_for_img.hidden = false;
+	}, 500);
 }
 
 function clearActiveClasses(){
@@ -80,12 +114,12 @@ function final_game_card(win_com, lose_com, chouse){
 
 function scoring_points(answer){
 	let check = 0;
-	if (answer == true_answers[question] && question % 2 == 0){
+	if (answer == test_question.trueAnswers-1 && question % 2 == 0){
 		score_com_1.innerHTML = count_1;
 		right_answer(answer);
 		count_1++;
 	}
-	else if(answer == true_answers[question] && question % 2 != 0){
+	else if(answer == test_question.trueAnswers-1 && question % 2 != 0){
 		right_answer(answer);
 		score_com_2.innerHTML = count_2;
 		count_2++;
@@ -97,7 +131,7 @@ function scoring_points(answer){
 
 	question++;
 	if (check == 1){
-		answers[true_answers[question]-1].onclick = () => {
+		answers[test_question.trueAnswers-1].onclick = () => {
 			next_question();
 		}
 	}
@@ -105,18 +139,20 @@ function scoring_points(answer){
 }
 
 function next_question(){
+	var_question();
 	setTimeout(()=>{
 		answers.forEach((items) => {
 				items.style.color = "black";
 			});
 		body.style.backgroundColor = "#F1F2F4";
-		if (question < 2){ //тут надо будет поправить
+		if (question < quantity_question){ 
 			for (let i = 0; i < 5; i++){
 				answers[i].onclick = () => scoring_points(i);
-				answers[i].innerHTML = answer_options[question*5+i];
+				answers[i].innerHTML = test_question.var_answers[i];
 			}
 			//photo.src = "img/photo_2021-07-09_11-42-03.jpg";
-			photo.src = img[question];
+			photo.src = test_question.img;
+			quiz_question.innerHTML = test_question.obj_question;
 			order_move();
 		}
 		else final_game();
@@ -138,7 +174,7 @@ function right_answer(answer){
 
 function wrong_answer(answer){
 	answers[answer].style.color = "red";
-	answers[true_answers[question]].style.color = "green";
+	answers[test_question.trueAnswers-1].style.color = "green";
 	body.style.backgroundColor = "red";
 	body.style.transition = "all 500ms ease-in-out";
 	block_buttons();
